@@ -21,14 +21,12 @@ pipeline {
 
         stage('CD'){
             steps {
-
-                withCredentials([file(credentialsId: 'srv-access', variable: 'config')]){
+                
                     sh """
                        
                         sed -i 's/tag/${BUILD_NUMBER}/g' deployment/deployment.yaml
                         kubectl apply -Rf deployment
                     """
-                }
             }
  
         }
