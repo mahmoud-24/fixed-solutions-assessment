@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="{{
+      static_url("css/style.css")
+    }}">
+
+    <title> My final project</title>
+  </head>
+
+  <body>
+    <div>
+      <p>
+        👋 Iam Mahmoud Ibrahim , Hello from ITI 3 month
+        <span class="highlight" id="{{ dict['environment'] }}">{{
+          dict["environment"]
+        }}</span>
+      </p>
+      <p><span class="counter">Counter:</span> {{ dict["counter"] }}</p>
+    </div>
+    <div>
+      <button type="button" onClick="window.location.reload()">Reload</button>
+    </div>
+  </body>
+</html>

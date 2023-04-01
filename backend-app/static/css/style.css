@@ -1,0 +1,20 @@
+span.counter {
+  color: #1625c2;
+}
+
+span.highlight {
+  background-color: #a19f9f;
+  color: white;
+  padding: 3px;
+  border-radius: 2px;
+}
+
+span.highlight#DEV {
+  background-color: #14095d;
+  color: white;
+}
+
+span.highlight#PROD {
+  background-color: #0c8416;
+  color: white;
+}
