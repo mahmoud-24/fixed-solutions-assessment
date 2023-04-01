@@ -9,13 +9,13 @@ variable "destination_cidr_block" {
 variable "aws_subnet-public-1" {
   
 }
-variable "aws_subnet-private-1" {
+# variable "aws_subnet-private-1" {
   
-}
+# }
 variable "aws_internet_gateway" {
   
 }
-variable "aws_nat_gateway" {
+# variable "aws_nat_gateway" {
   
-}
+# }
 
