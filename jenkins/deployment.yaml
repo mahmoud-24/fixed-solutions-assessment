@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: jenkins
-          image: mmelegy/jenkinss
+          image: jenkins/jenkins:lts
           ports:
             - name: httpport
               containerPort: 8080
