@@ -1,1 +1,101 @@
 # fixed-solutions-assessment
+Create EKS using Terraform infrastructure and jenkins deployment to Deploy a Python web application on EKS using CI/CD Jenkins Pipeline using the following steps and high-level diagram:
+1. Implement a secure EKS Cluster
+2. Deploy and configure Jenkins on EKS
+3. Deploy the backend application on EKS using the Jenkins pipeline
+
+### Used Tools
+ <img src="./pictures/terraform.png" width="50" height="50">
+
+##### Terraform          
+Infrastructure as a code to execute the app Infrastructure.
+
+<img src="./pictures/jenkins.png" width="50" height="50">
+
+##### Jenkins            
+An open source automation server which we will use to build, test, and deploy our app or software.
+
+<img src="./pictures/docker.png" width="50" height="50">
+
+##### Docker             
+ The platform which we use to build the app image.
+
+<img src="./pictures/k8s.png" width="50" height="50">
+
+##### Kubernates         
+ Kubernetes automates operational tasks of container management.
+
+<img src="./pictures/aws.jpg" width="50" height="50">
+
+##### AWS               
+The Amazon Web Services provider which we will use it through our project.
+
+### provision infrastructure using terraform
+```
+terraform init
+```
+```
+terraform plan
+```
+```
+terraform apply
+```
+![home_Page Image](./pictures/terr-apply.png)
+
+### Check pods and Services To Get URL For Jenkins
+![home_Page Image](./pictures/podsandsvc.png)
+
+### Get Jenkins Password Connect
+```
+kubectl exec --namespace jenkins -it svc/jenkins-service -c jenkins -- /bin/cat /var/jenkins_home/secrets/initialAdminPassword && echo
+```
+### Install Plugin And Create Your Admin User In Jenkins
+## Now you are ready to use Jenkins on a EKS cluster! 🚀
+
+## THEN Deploy a backend appliciation on kubernetes cluster using CI/CD jenkins pipeline
+
+### Create Jenkins Credentials Configurations:
+ - Create a username and password Credential for your Dockerhub account.
+ 
+
+ ### Dockerfile
+Created a Dockerfile to Dockerize My Python App
+
+### Jenkinsfile
+Created a Jenkinsfile with continuous integration (CI) and continuous deployment (CD) stages
+
+#### CI stage:
+- Building the image with a version number equals to the Jenkins build number. 
+- Passing the Dockerhub credentials in order to login.
+- Pushing the new image to Dockerhub.
+
+BUILD_NUMBER is an environment variable.
+
+#### CD stage:
+- Replacing the "tag" in the deployment file with the new BUILD_NUMBER (version).
+- Deploying the app with kubectl.
+
+### Create New Pipeline With Pipeline script from SCM
+
+- Choose type for SCM (Git) , Put Your Repository Link
+- If The Repo Private We Need Add Credential Github Username And Password
+- Check Branch Name In Your Repo
+
+#### GitHub Webhook
+
+Changing the pipeline configurations by activating the "GitHub hook trigger for GITScm polling".
+
+
+From GitHub -->
+- Add a webhook.
+- Add the jenkins URL/github-webhook/ to the Payload URL.
+
+
+### The application is successfully deployed!🚀 
+
+![home_Page Image](./pictures/app.png)
+
+## Final Part: Clean up 💣
+```
+terraform destroy 
+```
