@@ -42,11 +42,13 @@ spec:
               mountPath: /usr/bin/kubectl
               subPath: kubectl
 
+      
       initContainers:
         - name: init-docker
           image: docker
           command: ["cp","/usr/local/bin/docker", "/opt/tmp"]
        
+            
           volumeMounts:  
             - name: docker
               mountPath: /opt/tmp
@@ -59,6 +61,7 @@ spec:
             - name: kubernetes
               mountPath: "/opt/temp"
 
+        
       volumes:
         - name: jenkins-data
           emptyDir: {}
@@ -72,6 +75,7 @@ spec:
 
         - name: kubernetes
           emptyDir: {}
+        
 ---
 apiVersion: v1
 kind: Service
