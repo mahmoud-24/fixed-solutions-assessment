@@ -1,13 +1,8 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: jenkins
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: jenkins
-  namespace: jenkins
+  namespace: devops-tools
 spec:
   replicas: 1
   selector:
@@ -18,32 +13,57 @@ spec:
       labels:
         app: jenkins-server
     spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+      serviceAccountName: jenkins-admin
       containers:
         - name: jenkins
-          image: mmelegy/jenkinszz
+          image: jenkins/jenkins:lts
+          resources:
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
+            requests:
+              memory: "500Mi"
+              cpu: "500m"
           ports:
             - name: httpport
               containerPort: 8080
             - name: jnlpport
               containerPort: 50000
-
+          livenessProbe:
+            httpGet:
+              path: "/login"
+              port: 8080
+            initialDelaySeconds: 90
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 5
+          readinessProbe:
+            httpGet:
+              path: "/login"
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           volumeMounts:
             - name: jenkins-data
               mountPath: /var/jenkins_home
-
-            - name: dockersock
-              mountPath: /var/run/docker.sock
-            
-            - name: docker
-              mountPath: /usr/bin/docker
-              subPath: docker
 
             - name: kubernetes
               mountPath: /usr/bin/kubectl
               subPath: kubectl
 
-      
       initContainers:
+        - name: init-k8s
+          image: alpine/k8s:1.23.13
+          command: ["cp", "/usr/bin/kubectl", "/opt/temp"]
+
+          volumeMounts:
+            - name: kubernetes
+              mountPath: "/opt/temp"
         - name: init-docker
           image: docker
           command: ["cp","/usr/local/bin/docker", "/opt/tmp"]
@@ -52,41 +72,16 @@ spec:
           volumeMounts:  
             - name: docker
               mountPath: /opt/tmp
-
-        - name: init-k8s
-          image: alpine/k8s:1.23.13
-          command: ["cp","/usr/bin/kubectl","/opt/temp"]
-
-          volumeMounts:
-            - name: kubernetes
-              mountPath: "/opt/temp"
-
-        
       volumes:
         - name: jenkins-data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: jenkins-pv-claim
 
+        - name: kubernetes
+          emptyDir: {}
         - name: docker
           emptyDir: {}
         
         - name: dockersock
           hostPath:
             path: /var/run/docker.sock
-
-        - name: kubernetes
-          emptyDir: {}
-        
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: jenkins-service
-  namespace: jenkins
-spec:
-  type: LoadBalancer
-  selector:
-    app: jenkins-server
-  ports:
-      # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
-    - port: 8080
-      targetPort: 8080
