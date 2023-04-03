@@ -49,6 +49,22 @@ terraform apply
 ```
 kubectl exec --namespace jenkins -it svc/jenkins-service -c jenkins -- /bin/cat /var/jenkins_home/secrets/initialAdminPassword && echo
 ```
+### SSH to the node and install docker daemon.
+```
+ssh -i "iti.pem" ec2-user@3.86.209.161
+```
+```
+sudo yum update -y
+```
+```
+sudo yum install -y docker
+```
+```
+sudo service docker start
+```
+```
+sudo systemctl enable docker.service
+```
 ### Install Plugin And Create Your Admin User In Jenkins
 ## Now you are ready to use Jenkins on a EKS cluster! 🚀
 
@@ -56,7 +72,7 @@ kubectl exec --namespace jenkins -it svc/jenkins-service -c jenkins -- /bin/cat 
 
 ### Create Jenkins Credentials Configurations:
  - Create a username and password Credential for your Dockerhub account.
- 
+ ![home_Page Image](./pictures/credn.png)
 
  ### Dockerfile
 Created a Dockerfile to Dockerize My Python App
@@ -80,6 +96,8 @@ BUILD_NUMBER is an environment variable.
 - Choose type for SCM (Git) , Put Your Repository Link
 - If The Repo Private We Need Add Credential Github Username And Password
 - Check Branch Name In Your Repo
+![home_Page Image](./pictures/pipeline.png)
+![home_Page Image](./pictures/console.png)
 
 #### GitHub Webhook
 
@@ -89,11 +107,11 @@ Changing the pipeline configurations by activating the "GitHub hook trigger for 
 From GitHub -->
 - Add a webhook.
 - Add the jenkins URL/github-webhook/ to the Payload URL.
-
+![home_Page Image](./pictures/webhook.png)
 
 ### The application is successfully deployed!🚀 
 
-![home_Page Image](./pictures/app.png)
+![home_Page Image](./pictures/final.png)
 
 ## Final Part: Clean up 💣
 ```
