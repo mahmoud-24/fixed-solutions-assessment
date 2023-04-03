@@ -107,6 +107,10 @@ resource "aws_eks_node_group" "nodes_general" {
   labels = {
     role = "nodes-general"
   }
+  
+  remote_access {
+    ec2_ssh_key = "iti"
+  }
 
   # Kubernetes version
   version = "1.25"

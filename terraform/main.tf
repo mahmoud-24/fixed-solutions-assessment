@@ -45,3 +45,7 @@ module "cluster_module" {
   public_us_east_1b_id = module.public_us_east_1b.subnet_id
   vpc_id = module.vpc.vpc_id
 }
+module "pub-ec2" {
+  source    = "./ec2"
+  subnet_id = module.public_us_east_1a.subnet_id
+}
