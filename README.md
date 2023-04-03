@@ -107,7 +107,11 @@ Changing the pipeline configurations by activating the "GitHub hook trigger for 
 From GitHub -->
 - Add a webhook.
 - Add the jenkins URL/github-webhook/ to the Payload URL.
+
 ![home_Page Image](./pictures/webhook.png)
+
+### Check pods and Services To Get URL For application
+![home_Page Image](./pictures/podsapp.png)
 
 ### The application is successfully deployed!🚀 
 
