@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: jenkins
-          image: mmelegy/jenkinss
+          image: mmelegy/jenkinszz
           ports:
             - name: httpport
               containerPort: 8080
@@ -48,7 +48,7 @@ spec:
           image: docker
           command: ["cp","/usr/local/bin/docker", "/opt/tmp"]
        
-            
+    
           volumeMounts:  
             - name: docker
               mountPath: /opt/tmp

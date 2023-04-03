@@ -10,9 +10,9 @@ pipeline {
 
                 sh """
                     cd backend-app
-                    docker build . -t mmelegy/python-app:v$BUILD_NUMBER
-                    docker login -u ${USERNAME} -p ${PASSWORD}
-                    docker push mmelegy/python-app:v$BUILD_NUMBER
+                    sudo docker build . -t mmelegy/python-app:v$BUILD_NUMBER
+                    sudo docker login -u ${USERNAME} -p ${PASSWORD}
+                    sudo docker push mmelegy/python-app:v$BUILD_NUMBER
                     cd ..
                 """
                 }
