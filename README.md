@@ -110,7 +110,7 @@ From GitHub -->
 
 ![home_Page Image](./pictures/webhook.png)
 
-### Check pods and Services To Get URL For application
+### Check pods and Service To Get URL For application
 
 ![home_Page Image](./pictures/podsapp.png)
 
