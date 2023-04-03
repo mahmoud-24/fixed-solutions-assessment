@@ -47,7 +47,7 @@ terraform apply
 
 ### Get Jenkins Password Connect
 ```
-kubectl exec --namespace jenkins -it svc/jenkins-service -c jenkins -- /bin/cat /var/jenkins_home/secrets/initialAdminPassword && echo
+kubectl exec --namespace jenkins-ns -it svc/jenkins-svc -c jenkins -- /bin/cat /var/jenkins_home/secrets/initialAdminPassword && echo
 ```
 ### SSH to the node and install docker daemon.
 ```
