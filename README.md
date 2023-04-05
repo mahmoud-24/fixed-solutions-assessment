@@ -5,7 +5,8 @@ Create EKS using Terraform infrastructure and jenkins deployment to Deploy a Pyt
 3. Deploy the backend application on EKS using the Jenkins pipeline
 
 ### video for my demo project
-https://drive.google.com/file/d/1AKsDqiT3QgJHHQatLtKGI_FN1-QjB2aO/view
+https://drive.google.com/file/d/1AKsDqiT3QgJHHQatLtKGI_FN1-QjB2aO/view?usp=sharing
+
 ### Used Tools
  <img src="./pictures/terraform.png" width="50" height="50">
 
